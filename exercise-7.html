@@ -15,6 +15,18 @@
     4. the ability to edit an existing task
 
     */
+    $(function(){
+    $('#add-button').click(function () {
+       var toDoVal = $('#description').val();
+       $('#todo-list').append('<li>'+toDoVal+'</li>');
+       $('li').append('<button>X</button>').addClass('remover');
+    });
+    $("body").on('click','.remover',function () {
+      console.log('working');
+      $(this).remove();
+    });
+
+  })
     </script>
     <style>
     #wrapper {
