@@ -18,12 +18,24 @@
     $(function(){
     $('#add-button').click(function () {
        var toDoVal = $('#description').val();
-       $('#todo-list').append('<li>'+toDoVal+'</li>');
-       $('li').append('<button>X</button>').addClass('remover');
+       $('#todo-list').append('<li><span>'+toDoVal+'</span></li>');
     });
-    $("body").on('click','.remover',function () {
-      console.log('working');
-      $(this).remove();
+    $("#todo-list").on('click','.remover',function () {
+      $(this).parents("li").remove();
+    });
+
+    $('#todo-list').on('click', 'li',function(){
+      $(this).children('span').attr('contenteditable','true');
+      if($(this).has('button').length){
+      }else{
+      $(this).append('<input id="checkBox" type="checkbox">').addClass('underline');
+      $(this).append('<button class="remover">X</button>');
+
+      };
+    });
+    $('#todo-list').on('click', '#checkBox', function () {
+      console.log('strike');
+      $(this).prev().toggleClass('striker')
     });
 
   })
@@ -33,7 +45,9 @@
       max-width: 480px;
       margin: auto;
     }
-
+    .striker {
+      text-decoration: line-through;
+    }
     #description, #search, #todo-list {
       font-size: 1.5em;
     }
@@ -44,7 +58,7 @@
       <input id="description" type="text" name="description">
       <button id="add-button">Add Task</button>
       <ul id="todo-list">
-        <li>Feed the cat</li>
+        <li><span>Feed the cat</span></li>
       </ul>
     </div>
   </body>
